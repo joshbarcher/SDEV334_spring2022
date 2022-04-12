@@ -1,6 +1,7 @@
 package test;
 
 import model.Airplane;
+import queues.BinaryHeap;
 
 import java.util.PriorityQueue;
 
@@ -8,7 +9,7 @@ public class TestPriorityQueue
 {
     public static void main(String[] args)
     {
-        PriorityQueue<Airplane> airTrafficController = new PriorityQueue<>();
+        BinaryHeap<Airplane> airTrafficController = new BinaryHeap<>();
 
         //add a few planes
         Airplane chicagoFlight = new Airplane("CHI 222", 400.0);
@@ -32,7 +33,7 @@ public class TestPriorityQueue
         //we have space to land three planes
         for (int i = 1; i <= 3; i++)
         {
-            Airplane plane = airTrafficController.poll();
+            Airplane plane = airTrafficController.remove();
             System.out.println("Plane landed: " + plane.getPlaneId());
         }
 
@@ -41,14 +42,14 @@ public class TestPriorityQueue
         airTrafficController.add(new Airplane("PORT 204", 190.0));
 
         //a plane dumps some of it's fuel
-        airTrafficController.remove(chicagoFlight);
+        /*airTrafficController.remove(chicagoFlight);
         chicagoFlight.setFuelRemaining(50.0);
-        airTrafficController.add(chicagoFlight);
+        airTrafficController.add(chicagoFlight);*/
 
         //we have space to land two planes
         for (int i = 1; i <= 2; i++)
         {
-            Airplane plane = airTrafficController.poll();
+            Airplane plane = airTrafficController.remove();
             System.out.println("Plane landed: " + plane.getPlaneId());
         }
     }
