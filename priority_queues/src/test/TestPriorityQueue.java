@@ -21,6 +21,9 @@ public class TestPriorityQueue
         airTrafficController.add(new Airplane("LOS 199", 300.0));
         airTrafficController.add(chicagoFlight);
         airTrafficController.add(new Airplane("CHI 333", 500.0));
+        airTrafficController.add(new Airplane("LAG 101", 110.0));
+        airTrafficController.add(new Airplane("LAG 201", 220.0));
+        airTrafficController.add(new Airplane("BOS 999", 300.0));
 
         //then land them one by one
         /*while (!airTrafficController.isEmpty())

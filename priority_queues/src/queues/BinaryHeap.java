@@ -1,10 +1,12 @@
 package queues;
 
+import java.util.Arrays;
+
 public class BinaryHeap<T extends Comparable<T>> implements IPriorityQueue<T>
 {
     //constants to control the heap
     private static final int INITIAL_SIZE = 10;
-    private static final double RESIZE_RATE = 2.0;
+    private static final int RESIZE_RATE = 2;
 
     //primary fields
     private T[] heap;
@@ -13,6 +15,8 @@ public class BinaryHeap<T extends Comparable<T>> implements IPriorityQueue<T>
     public BinaryHeap()
     {
         heap = (T[])new Comparable[INITIAL_SIZE];
+
+        //TODO add something here...
     }
 
     @Override
@@ -62,13 +66,63 @@ public class BinaryHeap<T extends Comparable<T>> implements IPriorityQueue<T>
 
     private void resize()
     {
+        //create variables to hold old and new heap
+        T[] oldHeap = heap;
+        heap = (T[]) new Comparable[oldHeap.length * RESIZE_RATE];
 
+        //copy elements over to the new heap
+        for (int i = 1; i <= size; i++)
+        {
+            heap[i] = oldHeap[i];
+        }
     }
 
     @Override
     public T remove()
     {
-        return null;
+        //save the return value
+        T result = heap[1];
+
+        //pick a new root
+        heap[1] = heap[size];
+
+        //remove the last leaf
+        heap[size] = null;
+        size--;
+
+        //adjust the heap ordering
+        sink(1);
+
+        return result;
+    }
+
+    private void sink(int currentIndex)
+    {
+        //loop as long as the current node has a child
+        while (currentIndex * 2 <= size)
+        {
+            //indices for children
+            int leftChildIndex = currentIndex * 2;
+            int rightChildIndex = currentIndex * 2 + 1;
+
+            //find the smallest child
+            int smallestChildIndex = leftChildIndex;
+            if (heap[leftChildIndex].compareTo(heap[rightChildIndex]) > 0)
+            {
+                smallestChildIndex = rightChildIndex;
+            }
+
+            //swap if out of order (the parent and the smallest child)
+            if (heap[currentIndex].compareTo(heap[smallestChildIndex]) > 0)
+            {
+                swap(currentIndex, smallestChildIndex);
+                currentIndex = smallestChildIndex; //move to the smallest child
+            }
+            else
+            {
+                break; //short-circuit when the order is correct
+            }
+        }
     }
 
     @Override
@@ -80,12 +134,18 @@ public class BinaryHeap<T extends Comparable<T>> implements IPriorityQueue<T>
     @Override
     public int size()
     {
-        return 0;
+        return size;
     }
 
     @Override
     public boolean isEmpty()
     {
         return false;
+    }
+
+    @Override
+    public String toString()
+    {
+        return "Heap: " + Arrays.toString(heap);
     }
 }

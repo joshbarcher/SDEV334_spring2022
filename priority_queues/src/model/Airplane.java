@@ -52,9 +52,6 @@ public class Airplane implements Comparable<Airplane>
     @Override
     public String toString()
     {
-        return "Airplane{" +
-                "planeId='" + planeId + '\'' +
-                ", fuelRemaining=" + fuelRemaining +
-                '}';
+        return String.valueOf(fuelRemaining);
     }
 }
