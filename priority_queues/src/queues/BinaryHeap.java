@@ -19,6 +19,25 @@ public class BinaryHeap<T extends Comparable<T>> implements IPriorityQueue<T>
         //TODO add something here...
     }
 
+    //this is the heapify (build-heap) operation
+    public BinaryHeap(T[] elements)
+    {
+        //copy the input elements to the heap
+        heap = (T[]) new Comparable[elements.length + 1]; //+1 to adjust for the empty index 0
+        for (int i = 0; i < elements.length; i++)
+        {
+            heap[i + 1] = elements[i];
+        }
+        size = elements.length;
+
+        //then heapify
+        int lastIndexWithChild = size / 2;
+        for (int i = lastIndexWithChild; i >= 1; i--)
+        {
+            sink(i);
+        }
+    }
+
     @Override
     public void add(T element)
     {
@@ -107,7 +126,7 @@ public class BinaryHeap<T extends Comparable<T>> implements IPriorityQueue<T>
 
             //find the smallest child
             int smallestChildIndex = leftChildIndex;
-            if (heap[leftChildIndex].compareTo(heap[rightChildIndex]) > 0)
+            if (heap[rightChildIndex] != null && heap[leftChildIndex].compareTo(heap[rightChildIndex]) > 0)
             {
                 smallestChildIndex = rightChildIndex;
             }
@@ -128,7 +147,7 @@ public class BinaryHeap<T extends Comparable<T>> implements IPriorityQueue<T>
     @Override
     public T peek()
     {
-        return null;
+        return heap[1];
     }
 
     @Override
@@ -140,7 +159,7 @@ public class BinaryHeap<T extends Comparable<T>> implements IPriorityQueue<T>
     @Override
     public boolean isEmpty()
     {
-        return false;
+        return size == 0;
     }
 
     @Override

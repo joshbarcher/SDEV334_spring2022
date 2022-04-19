@@ -55,5 +55,27 @@ public class TestPriorityQueue
             Airplane plane = airTrafficController.remove();
             System.out.println("Plane landed: " + plane.getPlaneId());
         }
+
+        //test build-heap
+        Integer[] nums = {16, 3, 1, 15, 0, 45, 12, 2, 3};
+        BinaryHeap<Integer> heapOfNums = new BinaryHeap<Integer>(nums);
+
+        //print them out
+        while (!heapOfNums.isEmpty())
+        {
+            System.out.println(heapOfNums.remove());
+        }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
