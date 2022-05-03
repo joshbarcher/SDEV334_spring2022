@@ -4,6 +4,8 @@ import java.util.Arrays;
 
 public class MergeSort
 {
+    private int[] aux;
+
     public static void main(String[] args)
     {
         int[] testMe = {4, 2, 9, 5, 11, 4};
@@ -45,6 +47,52 @@ public class MergeSort
 
     private void merge(int[] array, int low, int high)
     {
-        //TODO write this after the break...
+        int mid = (high + low) / 2;
+        int numElements = (high - low + 1);
+
+        //these indices keep track of each sub-array and the next
+        //element to merge together
+        int left = low;
+        int right = mid + 1;
+
+        //pick the elements one-by-one
+        for (int i = 0; i < numElements; i++)
+        {
+            //first check if a sub-array is "exhausted"
+            if (left > mid) //no more elements on the left
+            {
+                aux[low + i] = array[right++];
+            }
+            else if (right > high) //no more elements on the right
+            {
+                aux[low + i] = array[left++];
+            }
+            //next check for the smallest element
+            else if (array[left] <= array[right]) //left side smaller (or equal - stable sort!)
+            {
+                aux[low + i] = array[left++];
+            }
+            else //right side is smaller
+            {
+                aux[low + i] = array[right++];
+            }
+        }
+
+        //move the elements from the auxiliary array back to the input array
+        for (int i = 0; i < numElements; i++)
+        {
+            array[low + i] = aux[low + i];
+        }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
