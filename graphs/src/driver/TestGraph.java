@@ -31,10 +31,14 @@ public class TestGraph
             new Edge<String>("a", "d", 1),
             new Edge<String>("a", "c", 0),
             new Edge<String>("b", "c", 4),
-            new Edge<String>("b", "c", 4)
+            new Edge<String>("b", "c", 4),
+            new Edge<String>("a", "b", 3),
+            new Edge<String>("b", "d", 2)
         );
 
         System.out.println("All edges were added? " + allAdded);
+        System.out.println("|V| = " + stringGraph.vertexSize());
+        System.out.println("|E| = " + stringGraph.edgeSize());
     }
 }
 

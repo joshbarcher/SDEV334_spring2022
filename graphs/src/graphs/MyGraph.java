@@ -10,6 +10,8 @@ import java.util.Map;
 public class MyGraph<V> implements IWeightedUndirectedGraph<V>
 {
     private Map<V, Node> adjacencyLists = new HashMap<>();
+    //private int vertexSize = 0;
+    private int edgeSize = 0;
 
     @Override
     public boolean addVertex(V element)
@@ -50,6 +52,7 @@ public class MyGraph<V> implements IWeightedUndirectedGraph<V>
 
         addDirectedEdge(first, second, weight);
         addDirectedEdge(second, first, weight);
+        edgeSize++;
 
         return true;
     }
@@ -92,6 +95,21 @@ public class MyGraph<V> implements IWeightedUndirectedGraph<V>
     @Override
     public boolean containsEdge(V first, V second)
     {
+        //look up the adjacency list in the map
+        Node current = adjacencyLists.get(first);
+
+        //loop over the linked list and see if second
+        //is inside of any of the nodes
+        while (current != null)
+        {
+            if (current.otherVertex.equals(second))
+            {
+                return true;
+            }
+
+            current = current.next;
+        }
+
         return false;
     }
 
@@ -111,13 +129,13 @@ public class MyGraph<V> implements IWeightedUndirectedGraph<V>
     @Override
     public int vertexSize()
     {
-        return 0;
+        return adjacencyLists.size();
     }
 
     @Override
     public int edgeSize()
     {
-        return 0;
+        return edgeSize;
     }
 
     //don't implement this (yet)!
