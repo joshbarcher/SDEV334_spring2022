@@ -1,6 +1,7 @@
 package graphs;
 
 import adts.IWeightedUndirectedGraph;
+import org.w3c.dom.Node;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -47,31 +48,39 @@ public class MyGraph<V> implements IWeightedUndirectedGraph<V>
             return false;
         }
 
-        //add the new edge at the start of both of the adjacency lists
-        Node oldHeadFirst = adjacencyLists.get(first);
-        Node oldHeadSecond = adjacencyLists.get(second);
-
-        if (oldHeadFirst == null)
-        {
-            adjacencyLists.put(first, new Node(second, weight));
-        }
-        else
-        {
-            //put a new node at the start of the linked list
-            adjacencyLists.put(first, new Node(second, weight, oldHeadFirst));
-        }
-
-        if (oldHeadSecond == null)
-        {
-            adjacencyLists.put(second, new Node(first, weight));
-        }
-        else
-        {
-            //put a new node at the start of the linked list
-            adjacencyLists.put(second, new Node(first, weight, oldHeadSecond));
-        }
+        addDirectedEdge(first, second, weight);
+        addDirectedEdge(second, first, weight);
 
         return true;
+    }
+
+    @Override
+    public boolean addEdge(Edge<V>... edges)
+    {
+        boolean result = true;
+
+        for (Edge<V> edge : edges)
+        {
+            boolean worked = addEdge(edge.getFirst(), edge.getSecond(),
+                                     edge.getWeight());
+            result = result && worked;
+        }
+
+        return result;
+    }
+
+    //This adds an edge which represents one direction of the relationship
+    private void addDirectedEdge(V source, V destination, int weight)
+    {
+        Node oldHead = adjacencyLists.get(source);
+        if (oldHead == null)
+        {
+            adjacencyLists.put(source, new Node(destination, weight));
+        }
+        else
+        {
+            adjacencyLists.put(source, new Node(destination, weight, oldHead));
+        }
     }
 
     @Override
