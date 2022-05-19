@@ -25,15 +25,16 @@ public class TestGraph
                 stringGraph.containsVertex("g"));
 
         //added edges
-        stringGraph.addEdge(
+        allAdded = stringGraph.addEdge(
             new Edge<String>("a", "b", 3),
             new Edge<String>("b", "d", 2),
             new Edge<String>("a", "d", 1),
             new Edge<String>("a", "c", 0),
+            new Edge<String>("b", "c", 4),
             new Edge<String>("b", "c", 4)
         );
 
-        System.out.println(stringGraph);
+        System.out.println("All edges were added? " + allAdded);
     }
 }
 

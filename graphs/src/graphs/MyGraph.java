@@ -101,6 +101,7 @@ public class MyGraph<V> implements IWeightedUndirectedGraph<V>
         return false;
     }
 
+    //this is challenging, implement this one last!
     @Override
     public boolean removeEdge(V first, V second)
     {
@@ -119,6 +120,7 @@ public class MyGraph<V> implements IWeightedUndirectedGraph<V>
         return 0;
     }
 
+    //don't implement this (yet)!
     @Override
     public int degree(V vertex)
     {
@@ -146,6 +148,12 @@ public class MyGraph<V> implements IWeightedUndirectedGraph<V>
             this.otherVertex = otherVertex;
             this.weight = weight;
             this.next = next;
+        }
+
+        @Override
+        public String toString()
+        {
+            return otherVertex + " (" + weight + ")";
         }
     }
 }
