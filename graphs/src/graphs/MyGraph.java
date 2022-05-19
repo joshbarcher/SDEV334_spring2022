@@ -40,8 +40,9 @@ public class MyGraph<V> implements IWeightedUndirectedGraph<V>
     @Override
     public boolean addEdge(V first, V second, int weight)
     {
-        //edges are part of a set (no duplicates!)
-        if (containsEdge(first, second))
+        //make sure the vertices are there and the edge is not
+        if (!containsVertex(first) || !containsVertex(second) ||
+            containsEdge(first, second))
         {
             return false;
         }
